@@ -13,7 +13,7 @@ namespace ASUS_BIOS_Replace
             Console.WriteLine("Start");
             if (args.Length != 2)
             {
-                Console.WriteLine("Error:lost args");
+                Console.WriteLine("Error:Parameter error");
                 return;
             }
 
