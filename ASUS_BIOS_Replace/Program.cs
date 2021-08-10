@@ -67,6 +67,8 @@ namespace ASUS_BIOS_Replace
             {
                 Array.Copy(sourceData, 0x1000, newData, 0x1000, 0x2000);
                 Console.WriteLine($"Replace MAC address success");
+
+                File.WriteAllBytes("Replace.bin", newData);
             }
             catch (System.Exception ex)
             {
@@ -96,6 +98,21 @@ namespace ASUS_BIOS_Replace
                 if (indexEnd != -1 && indexStartReplace != -1)
                 {
                     Debug.WriteLine($"Change start {indexStart} - {indexEnd}, length { indexEnd - indexStart}");
+
+                    var str = DateTime.Now.ToString();
+                    var encode = Encoding.UTF8;
+
+                    var bytes = new byte[indexEnd - indexStart];
+                    Array.Copy(sourceData, indexStart, bytes, 0, indexEnd - indexStart);
+
+                    StringBuilder ret = new StringBuilder();
+                    foreach (byte b in bytes)
+                    {
+                        ret.AppendFormat("{0:X2}", b);
+                    }
+                    var hex = ret.ToString();
+                    Console.WriteLine(hex);
+
                     Array.Copy(sourceData, indexStart, newData, indexStartReplace, indexEnd - indexStart);
                     return newData;
                 }
