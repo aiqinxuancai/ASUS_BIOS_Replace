@@ -20,7 +20,7 @@ jobs:
 #         with:
 #           dotnet-version: '3.1.101'
       - run: powershell curl https://github.com/MichalStrehovsky/bflat/releases/download/v0.0.2/bflat-0.0.2-win64.zip -o bflat.zip
-      - run: powershell Compress-7Zip -ArchiveFileName bflat.zip -TargetPath .\bflat
+      - run: powershell Expand-Archive -Path .\bflat.zip -DestinationPath .\bflat
       #- run: dotnet publish -c Release --runtime win-x64
       - run: powershell .\bflat\bflat.exe build $env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\Program.cs --os:windows
       #- run: zip -q -r bin\Release\netcoreapp3.1\DotNetDllPathPatcherWPF.zip 
