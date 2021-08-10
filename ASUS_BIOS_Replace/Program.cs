@@ -67,13 +67,14 @@ namespace ASUS_BIOS_Replace
             {
                 Array.Copy(sourceData, 0x1000, newData, 0x1000, 0x2000);
                 Console.WriteLine($"Replace MAC address success");
-
-                File.WriteAllBytes("Replace.bin", newData);
             }
             catch (System.Exception ex)
             {
                 Console.WriteLine($"Error:{ex}");
             }
+
+            Console.WriteLine($"Save to Replace.bin");
+            File.WriteAllBytes("Replace.bin", newData);
 
         }
 
@@ -99,19 +100,9 @@ namespace ASUS_BIOS_Replace
                 {
                     Debug.WriteLine($"Change start {indexStart} - {indexEnd}, length { indexEnd - indexStart}");
 
-                    var str = DateTime.Now.ToString();
-                    var encode = Encoding.UTF8;
-
                     var bytes = new byte[indexEnd - indexStart];
                     Array.Copy(sourceData, indexStart, bytes, 0, indexEnd - indexStart);
-
-                    StringBuilder ret = new StringBuilder();
-                    foreach (byte b in bytes)
-                    {
-                        ret.AppendFormat("{0:X2}", b);
-                    }
-                    var hex = ret.ToString();
-                    Console.WriteLine(hex);
+                    Console.WriteLine(ByteToHex(bytes));
 
                     Array.Copy(sourceData, indexStart, newData, indexStartReplace, indexEnd - indexStart);
                     return newData;
@@ -122,6 +113,17 @@ namespace ASUS_BIOS_Replace
 
         }
 
+        static string ByteToHex(byte[] source)
+        {
+            var bytes = source;
+            StringBuilder ret = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                ret.AppendFormat("{0:X2}", b);
+            }
+            var hex = ret.ToString();
+            return hex;
+        }
 
 
         static int FindByte(byte[] source, byte[] target, int startIndex = 0)
