@@ -27,7 +27,7 @@ jobs:
       - run: powershell New-Item -Path '$env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\bin\Release\bflat' -ItemType Directory
       - run: powershell Move-Item 'Program.exe' '$env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\bin\Release\bflat'
       - run: powershell Move-Item 'Program.pdb' '$env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\bin\Release\bflat'
-      - run: powershell Compress-7Zip $env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\bin\Release\bflat -ArchiveFileName "ASUS_BIOS_Replace.zip" -Format Zip
+      #- run: powershell Compress-7Zip $env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\bin\Release\bflat -ArchiveFileName "ASUS_BIOS_Replace.zip" -Format Zip
       - run: powershell Compress-Archive -Path $env:GITHUB_WORKSPACE\ASUS_BIOS_Replace\bin\Release\bflat -DestinationPath "ASUS_BIOS_Replace.zip"
       - name: Create a Release
         uses: ncipollo/release-action@v1
